@@ -154,7 +154,8 @@ var _resources = require('./resources');
 
 exports['default'] = _backbone2['default'].Router.extend({
 	routes: {
-		'': 'showHome'
+		'': 'showHome',
+		'add': 'showAdd'
 	},
 
 	initialize: function initialize(appElement) {
@@ -180,15 +181,22 @@ exports['default'] = _backbone2['default'].Router.extend({
 
 		this.collection.fetch().then(function () {
 			var data = _this.collection.toJSON();
-			console.log(data);
+			// console.log(data);
 
 			_this.render(_react2['default'].createElement(_views.HomeComponent, {
 				getData: data,
 				onHome: function () {
 					return _this.goto('');
+				},
+				onAdd: function () {
+					return _this.goto('add');
 				} }));
 		});
+	},
+	showAdd: function showAdd() {
+		console.log('showAdd');
 	}
+
 });
 //end of export default
 module.exports = exports['default'];
@@ -226,14 +234,72 @@ var _reactDom2 = _interopRequireDefault(_reactDom);
 exports['default'] = _react2['default'].createClass({
 	displayName: 'home',
 
+	returnHome: function returnHome() {
+		console.log('go home');
+		this.props.onHome();
+	},
+	addPic: function addPic() {
+		this.props.onAdd();
+	},
+	formatData: function formatData(data) {
+		return _react2['default'].createElement(
+			'div',
+			{ key: data.objectId },
+			_react2['default'].createElement('img', { src: data.URL, width: '40%' })
+		);
+	},
 	render: function render() {
 		return _react2['default'].createElement(
 			'div',
 			null,
 			_react2['default'].createElement(
-				'h1',
-				null,
-				this.props.getData[0].Name
+				'div',
+				{ className: 'nav' },
+				_react2['default'].createElement(
+					'ul',
+					null,
+					_react2['default'].createElement(
+						'li',
+						{ onClick: this.returnHome },
+						_react2['default'].createElement(
+							'h2',
+							null,
+							'Hello World'
+						)
+					),
+					_react2['default'].createElement(
+						'li',
+						{ onClick: this.addPic },
+						_react2['default'].createElement(
+							'h2',
+							null,
+							'New Image'
+						)
+					),
+					_react2['default'].createElement(
+						'li',
+						null,
+						_react2['default'].createElement(
+							'h2',
+							null,
+							_react2['default'].createElement(
+								'a',
+								{ href: 'http://jessesoldatfirstsite.bitballoon.com/', target: '_blank' },
+								'My World'
+							)
+						)
+					)
+				),
+				_react2['default'].createElement(
+					'div',
+					null,
+					_react2['default'].createElement('img', { src: 'http://mywanderfulworld.com/wp-content/uploads/2015/04/GLOBE.jpg', width: '100%' })
+				),
+				_react2['default'].createElement(
+					'div',
+					null,
+					this.props.getData.map(this.formatData)
+				)
 			)
 		);
 	}

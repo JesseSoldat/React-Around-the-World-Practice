@@ -14,7 +14,8 @@ import {
 
 export default Backbone.Router.extend({
 	routes: {
-		'' : 'showHome'
+		'' : 'showHome',
+		'add' : 'showAdd'
 	},
 
 	initialize(appElement) {
@@ -39,14 +40,19 @@ export default Backbone.Router.extend({
 	showHome(){
 		this.collection.fetch().then(()=>{
 			let data = this.collection.toJSON();
-			console.log(data);
+			// console.log(data);
 
 			this.render(
 				<HomeComponent
 				getData={data}
-				onHome={() => this.goto('')}/>
+				onHome={() => this.goto('')}
+				onAdd={() => this.goto('add')}/>
 				);
 		});
 		
+	},
+	showAdd(){
+		console.log('showAdd');
 	}
+
 }); //end of export default
