@@ -155,7 +155,8 @@ var _resources = require('./resources');
 exports['default'] = _backbone2['default'].Router.extend({
 	routes: {
 		'': 'showHome',
-		'add': 'showAdd'
+		'add': 'showAdd',
+		'details/:id': 'showDetails'
 	},
 
 	initialize: function initialize(appElement) {
@@ -194,7 +195,10 @@ exports['default'] = _backbone2['default'].Router.extend({
 						return _this.goto('add');
 					} }),
 				_react2['default'].createElement(_views.HomeComponent, {
-					getData: data })
+					getData: data,
+					onDetails: function (id) {
+						return _this.goto('details/' + id);
+					} })
 			));
 		});
 	},
@@ -213,6 +217,34 @@ exports['default'] = _backbone2['default'].Router.extend({
 				} }),
 			_react2['default'].createElement(_views.AddComponent, null)
 		));
+	},
+	showDetails: function showDetails(id) {
+		var _this3 = this;
+
+		var imageClicked = this.collection.get(id);
+		console.log(imageClicked);
+
+		if (imageClicked) {
+			this.render(_react2['default'].createElement(
+				'div',
+				null,
+				_react2['default'].createElement(_views.NavComponent, {
+					onHome: function () {
+						return _this3.goto('');
+					},
+					onAdd: function () {
+						return _this3.goto('add');
+					} }),
+				_react2['default'].createElement(_views.DetailsComponent, {
+					image: imageClicked.toJSON() })
+			));
+		} else {
+			this.render(_react2['default'].createElement(
+				'div',
+				null,
+				'No Image'
+			));
+		}
 	}
 
 });
@@ -319,9 +351,36 @@ exports['default'] = _react2['default'].createClass({
 module.exports = exports['default'];
 
 },{"../resources":4,"../views":12,"backbone":15,"jquery":17,"react":183,"react-dom":18}],9:[function(require,module,exports){
-"use strict";
+'use strict';
 
-},{}],10:[function(require,module,exports){
+Object.defineProperty(exports, '__esModule', {
+	value: true
+});
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactDom = require('react-dom');
+
+var _reactDom2 = _interopRequireDefault(_reactDom);
+
+exports['default'] = _react2['default'].createClass({
+	displayName: 'details',
+
+	render: function render() {
+		return _react2['default'].createElement(
+			'div',
+			null,
+			'DETAILS'
+		);
+	}
+});
+module.exports = exports['default'];
+
+},{"react":183,"react-dom":18}],10:[function(require,module,exports){
 "use strict";
 
 },{}],11:[function(require,module,exports){
@@ -348,10 +407,20 @@ var _reactDom2 = _interopRequireDefault(_reactDom);
 exports['default'] = _react2['default'].createClass({
 	displayName: 'home',
 
+	picDetails: function picDetails(id) {
+		console.log(id);
+		this.props.onDetails(id);
+	},
+
 	formatData: function formatData(data) {
+		var _this = this;
+
 		return _react2['default'].createElement(
 			'div',
-			{ key: data.objectId },
+			{ key: data.objectId,
+				onClick: function () {
+					return _this.picDetails(data.objectId);
+				} },
 			_react2['default'].createElement('img', { src: data.URL, width: '40%' })
 		);
 	},

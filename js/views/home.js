@@ -3,10 +3,15 @@ import React from 'react';
 import ReactDom from 'react-dom';
 
 export default React.createClass({
+	picDetails(id) {
+		console.log(id);
+		this.props.onDetails(id);
+	},
 	
 	formatData(data) {
 		return(
-			<div key={data.objectId}>
+			<div key={data.objectId}
+			onClick={() => this.picDetails(data.objectId)}>
 
 			<img src={data.URL} width="40%"/>
 			</div>)

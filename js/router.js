@@ -6,7 +6,8 @@ import $ from 'jquery';
 import {
 	NavComponent,
 	HomeComponent,
-	AddComponent
+	AddComponent,
+	DetailsComponent
 
 } from './views';
 
@@ -18,7 +19,8 @@ import {
 export default Backbone.Router.extend({
 	routes: {
 		'' : 'showHome',
-		'add' : 'showAdd'
+		'add' : 'showAdd',
+		'details/:id' : 'showDetails'
 	},
 
 	initialize(appElement) {
@@ -52,7 +54,8 @@ export default Backbone.Router.extend({
 					onAdd={() => this.goto('add')}/>
 
 					<HomeComponent
-					getData={data}/>
+					getData={data}
+					onDetails={(id) => this.goto('details/' +id)}/>
 				</div>
 				);
 		});
@@ -68,6 +71,30 @@ export default Backbone.Router.extend({
 			</div>
 			
 			);
+	},
+	showDetails(id){
+		let imageClicked = this.collection.get(id);
+		console.log(imageClicked);
+
+		if(imageClicked) {
+		this.render(
+			<div>
+				<NavComponent
+				onHome={() => this.goto('')}
+				onAdd={() => this.goto('add')}/>
+
+				<DetailsComponent 
+				image={imageClicked.toJSON()}/>
+			</div>
+			);
+		} 
+
+		else {
+			this.render(
+				<div>No Image</div>
+				);
+		}
+		
 	}
 
 }); //end of export default
