@@ -156,7 +156,8 @@ exports['default'] = _backbone2['default'].Router.extend({
 	routes: {
 		'': 'showHome',
 		'add': 'showAdd',
-		'details/:id': 'showDetails'
+		'details/:id': 'showDetails',
+		'edit/:id': 'showEdit'
 	},
 
 	initialize: function initialize(appElement) {
@@ -259,7 +260,10 @@ exports['default'] = _backbone2['default'].Router.extend({
 						return _this3.goto('add');
 					} }),
 				_react2['default'].createElement(_views.DetailsComponent, {
-					image: imageClicked.toJSON() })
+					image: imageClicked.toJSON(),
+					onEdit: function () {
+						return _this3.goto('edit/' + id);
+					} })
 			));
 		} else {
 			imageClicked = this.collection.add({ objectId: id });
@@ -275,10 +279,29 @@ exports['default'] = _backbone2['default'].Router.extend({
 							return _this3.goto('add');
 						} }),
 					_react2['default'].createElement(_views.DetailsComponent, {
-						image: imageClicked.toJSON() })
+						image: imageClicked.toJSON(),
+						onEdit: function () {
+							return _this3.goto('edit/' + id);
+						} })
 				));
 			});
 		}
+	},
+	showEdit: function showEdit() {
+		var _this4 = this;
+
+		this.render(_react2['default'].createElement(
+			'div',
+			null,
+			_react2['default'].createElement(_views.NavComponent, {
+				onHome: function () {
+					return _this4.goto('');
+				},
+				onAdd: function () {
+					return _this4.goto('add');
+				} }),
+			_react2['default'].createElement(_views.EditComponent, null)
+		));
 	}
 
 });
@@ -391,38 +414,55 @@ var _react2 = _interopRequireDefault(_react);
 exports['default'] = _react2['default'].createClass({
 	displayName: 'details',
 
+	editPic: function editPic(id) {
+		// console.log(id);
+		this.props.onEdit('edit/' + id);
+	},
 	render: function render() {
+		var _this = this;
+
 		return _react2['default'].createElement(
 			'div',
 			null,
 			_react2['default'].createElement(
-				'h1',
+				'div',
 				null,
-				'Details'
+				_react2['default'].createElement(
+					'h1',
+					null,
+					'Details'
+				),
+				_react2['default'].createElement('img', { src: this.props.image.URL }),
+				_react2['default'].createElement(
+					'h3',
+					null,
+					'Name: ',
+					this.props.image.Name
+				),
+				_react2['default'].createElement(
+					'h3',
+					null,
+					'User: ',
+					this.props.image.User
+				),
+				_react2['default'].createElement(
+					'h3',
+					null,
+					'@ ',
+					this.props.image.Location
+				),
+				_react2['default'].createElement(
+					'p',
+					null,
+					this.props.image.Description
+				)
 			),
-			_react2['default'].createElement('img', { src: this.props.image.URL }),
 			_react2['default'].createElement(
-				'h3',
-				null,
-				'Name: ',
-				this.props.image.Name
-			),
-			_react2['default'].createElement(
-				'h3',
-				null,
-				'User: ',
-				this.props.image.User
-			),
-			_react2['default'].createElement(
-				'h3',
-				null,
-				'@ ',
-				this.props.image.Location
-			),
-			_react2['default'].createElement(
-				'p',
-				null,
-				this.props.image.Description
+				'button',
+				{ onClick: function () {
+						return _this.editPic(_this.props.image.objectId);
+					} },
+				'Edit Info '
 			)
 		);
 	}
@@ -432,7 +472,99 @@ module.exports = exports['default'];
 },{"react":183}],10:[function(require,module,exports){
 "use strict";
 
-},{}],11:[function(require,module,exports){
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+exports["default"] = _react2["default"].createClass({
+	displayName: "edit",
+
+	render: function render() {
+		return _react2["default"].createElement(
+			"div",
+			null,
+			_react2["default"].createElement(
+				"h1",
+				null,
+				"Edit the Picture"
+			),
+			_react2["default"].createElement(
+				"form",
+				null,
+				_react2["default"].createElement(
+					"div",
+					null,
+					_react2["default"].createElement(
+						"label",
+						null,
+						"Picture Name: "
+					),
+					_react2["default"].createElement("input", { type: "text" })
+				),
+				_react2["default"].createElement("br", null),
+				_react2["default"].createElement("br", null),
+				_react2["default"].createElement(
+					"div",
+					null,
+					_react2["default"].createElement(
+						"label",
+						null,
+						"User Name: "
+					),
+					_react2["default"].createElement("input", { type: "text" })
+				),
+				_react2["default"].createElement("br", null),
+				_react2["default"].createElement("br", null),
+				_react2["default"].createElement(
+					"div",
+					null,
+					_react2["default"].createElement(
+						"label",
+						null,
+						"Picture Location: "
+					),
+					_react2["default"].createElement("input", { type: "text" })
+				),
+				_react2["default"].createElement("br", null),
+				_react2["default"].createElement("br", null),
+				_react2["default"].createElement(
+					"div",
+					null,
+					_react2["default"].createElement(
+						"label",
+						null,
+						"Picture Url: "
+					),
+					_react2["default"].createElement("input", { type: "text" })
+				),
+				_react2["default"].createElement("br", null),
+				_react2["default"].createElement("br", null),
+				_react2["default"].createElement(
+					"div",
+					null,
+					_react2["default"].createElement(
+						"label",
+						null,
+						"Description:"
+					),
+					_react2["default"].createElement("textarea", { type: "text" })
+				),
+				_react2["default"].createElement("br", null),
+				_react2["default"].createElement("br", null)
+			)
+		);
+	}
+
+});
+module.exports = exports["default"];
+
+},{"react":183}],11:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -449,7 +581,7 @@ exports["default"] = _react2["default"].createClass({
 	displayName: "home",
 
 	picDetails: function picDetails(id) {
-		console.log(id);
+		// console.log(id);
 		this.props.onDetails(id);
 	},
 

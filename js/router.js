@@ -8,7 +8,8 @@ import {
 	HomeComponent,
 	AddComponent,
 	DetailsComponent,
-	SpinnerComponent
+	SpinnerComponent,
+	EditComponent
 
 } from './views';
 
@@ -19,9 +20,10 @@ import {
 
 export default Backbone.Router.extend({
 	routes: {
-		'' : 'showHome',
-		'add' : 'showAdd',
-		'details/:id' : 'showDetails'
+		'' 				: 'showHome',
+		'add' 			: 'showAdd',
+		'details/:id' 	: 'showDetails',
+		'edit/:id'      : 'showEdit'
 	},
 
 	initialize(appElement) {
@@ -114,7 +116,8 @@ export default Backbone.Router.extend({
 				onAdd={() => this.goto('add')}/>
 
 				<DetailsComponent 
-				image={imageClicked.toJSON()}/>
+				image={imageClicked.toJSON()}
+				onEdit={() => this.goto('edit/' + id)}/>
 			</div>
 			);
 		} 
@@ -129,13 +132,24 @@ export default Backbone.Router.extend({
 					onAdd={() => this.goto('add')}/>
 
 					<DetailsComponent 
-					image={imageClicked.toJSON()}/>
+					image={imageClicked.toJSON()}
+					onEdit={() => this.goto('edit/' + id)}/>
 				</div>
 				);
 			});
 			
 		}
 		
+	},
+	showEdit() {
+		this.render(
+			<div>
+				<NavComponent
+				onHome={() => this.goto('')}
+				onAdd={() => this.goto('add')}/>
+				<EditComponent />
+			</div>
+			);
 	}
 
 }); //end of export default

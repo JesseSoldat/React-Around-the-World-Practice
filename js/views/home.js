@@ -2,7 +2,7 @@ import React from 'react';
 
 export default React.createClass({
 	picDetails(id) {
-		console.log(id);
+		// console.log(id);
 		this.props.onDetails(id);
 	},
 	
