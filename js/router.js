@@ -141,13 +141,42 @@ export default Backbone.Router.extend({
 		}
 		
 	},
-	showEdit() {
+	showEdit(id) {
+		
+		let imageClicked = this.collection;
+		var imageId = id;
+		// console.log(imageId);
+
 		this.render(
 			<div>
 				<NavComponent
 				onHome={() => this.goto('')}
 				onAdd={() => this.goto('add')}/>
-				<EditComponent />
+
+				<EditComponent 
+				image={imageClicked.toJSON()}
+				id={imageId}
+				EditSubmit={() => {
+					let picName = document.querySelector('.editPicName').value;
+					let userName = document.querySelector('.editUserName').value;
+					let location = document.querySelector('.editLocation').value;
+					let url = document.querySelector('.editUrl').value;
+					let description = document.querySelector('.editDescription').value;
+
+					let editParse = new PictureModel ({
+						objectId: id,
+						Name: picName,
+						User: userName,
+						Location: location,
+						URL: url,
+						Description: description
+					});
+
+					console.log(editParse.toJSON());
+
+					}
+
+				}/>
 			</div>
 			);
 	}
