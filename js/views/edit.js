@@ -30,11 +30,7 @@ export default React.createClass({
 						<input placeholder={this.props.info.Location}className="editLocation"type="text" />
 					</div>
 					<br/><br/>
-					<div>
-						<label>Picture Url: </label>
-						<input placeholder={this.props.info.URL}className="editUrl" type="text" />
-					</div>
-					<br/><br/>
+				
 					<div>
 						<label>Description:</label>
 						<textarea placeholder={this.props.info.Description} className="editDescription" type="text" />

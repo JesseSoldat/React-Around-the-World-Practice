@@ -297,14 +297,15 @@ exports['default'] = _backbone2['default'].Router.extend({
 			var data = _this4.collection.toJSON();
 			// console.log(data);
 
-			var singleObj = data.map(function (d) {
+			var singleObj = data.filter(function (d) {
 				if (d.objectId === imageId) {
 					// console.log(d);
 					return d;
 				}
 			});
+
 			var single = singleObj[0];
-			// console.log(single);
+			console.log(single);
 
 			_this4.render(_react2['default'].createElement(
 				'div',
@@ -324,7 +325,6 @@ exports['default'] = _backbone2['default'].Router.extend({
 						var picName = document.querySelector('.editPicName').value;
 						var userName = document.querySelector('.editUserName').value;
 						var location = document.querySelector('.editLocation').value;
-						var url = document.querySelector('.editUrl').value;
 						var description = document.querySelector('.editDescription').value;
 
 						var editParse = new _resources.PictureModel({
@@ -332,11 +332,12 @@ exports['default'] = _backbone2['default'].Router.extend({
 							Name: picName,
 							User: userName,
 							Location: location,
-							URL: url,
 							Description: description
 						});
 
-						console.log(editParse.toJSON());
+						// console.log(editParse.toJSON());
+						editParse.save();
+						_this4.goto('');
 					} })
 			));
 		});
@@ -576,18 +577,6 @@ exports["default"] = _react2["default"].createClass({
 						"Picture Location: "
 					),
 					_react2["default"].createElement("input", { placeholder: this.props.info.Location, className: "editLocation", type: "text" })
-				),
-				_react2["default"].createElement("br", null),
-				_react2["default"].createElement("br", null),
-				_react2["default"].createElement(
-					"div",
-					null,
-					_react2["default"].createElement(
-						"label",
-						null,
-						"Picture Url: "
-					),
-					_react2["default"].createElement("input", { placeholder: this.props.info.URL, className: "editUrl", type: "text" })
 				),
 				_react2["default"].createElement("br", null),
 				_react2["default"].createElement("br", null),

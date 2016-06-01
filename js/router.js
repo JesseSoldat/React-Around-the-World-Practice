@@ -152,19 +152,17 @@ export default Backbone.Router.extend({
 			let data = this.collection.toJSON();
 			// console.log(data);
 
-			let singleObj = data.map(function(d){
+			let singleObj = data.filter(function(d){
 				if(d.objectId === imageId) {
 					// console.log(d);
 					return d;
 				}
 
 			});
-			let single = singleObj[0];
-			// console.log(single);
 			
-		
-
-		
+			let single = singleObj[0];
+			console.log(single);
+			
 		this.render(
 			<div>
 				<NavComponent
@@ -179,7 +177,6 @@ export default Backbone.Router.extend({
 					let picName = document.querySelector('.editPicName').value;
 					let userName = document.querySelector('.editUserName').value;
 					let location = document.querySelector('.editLocation').value;
-					let url = document.querySelector('.editUrl').value;
 					let description = document.querySelector('.editDescription').value;
 
 					let editParse = new PictureModel ({
@@ -187,11 +184,12 @@ export default Backbone.Router.extend({
 						Name: picName,
 						User: userName,
 						Location: location,
-						URL: url,
 						Description: description
 					});
 
-					console.log(editParse.toJSON());
+					// console.log(editParse.toJSON());
+					editParse.save();
+					this.goto('');
 
 					}
 
