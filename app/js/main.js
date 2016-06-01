@@ -177,8 +177,13 @@ exports['default'] = _backbone2['default'].Router.extend({
 		_backbone2['default'].history.start();
 		return this;
 	},
+	showSpinner: function showSpinner() {
+		this.render(_react2['default'].createElement(_views.SpinnerComponent, null));
+	},
 	showHome: function showHome() {
 		var _this = this;
+
+		this.showSpinner();
 
 		this.collection.fetch().then(function () {
 			var data = _this.collection.toJSON();
@@ -259,8 +264,19 @@ exports['default'] = _backbone2['default'].Router.extend({
 		} else {
 			imageClicked = this.collection.add({ objectId: id });
 			imageClicked.fetch().then(function () {
-				_this3.render(_react2['default'].createElement(_views.DetailsComponent, {
-					image: imageClicked.toJSON() }));
+				_this3.render(_react2['default'].createElement(
+					'div',
+					null,
+					_react2['default'].createElement(_views.NavComponent, {
+						onHome: function () {
+							return _this3.goto('');
+						},
+						onAdd: function () {
+							return _this3.goto('add');
+						} }),
+					_react2['default'].createElement(_views.DetailsComponent, {
+						image: imageClicked.toJSON() })
+				));
 			});
 		}
 	}
@@ -270,36 +286,20 @@ exports['default'] = _backbone2['default'].Router.extend({
 module.exports = exports['default'];
 
 },{"./resources":4,"./views":12,"backbone":15,"jquery":17,"react":183,"react-dom":18}],8:[function(require,module,exports){
-'use strict';
+"use strict";
 
-Object.defineProperty(exports, '__esModule', {
+Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-var _backbone = require('backbone');
-
-var _backbone2 = _interopRequireDefault(_backbone);
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDom = require('react-dom');
-
-var _reactDom2 = _interopRequireDefault(_reactDom);
-
-var _jquery = require('jquery');
-
-var _jquery2 = _interopRequireDefault(_jquery);
-
-var _views = require('../views');
-
-var _resources = require('../resources');
-
-exports['default'] = _react2['default'].createClass({
-	displayName: 'add',
+exports["default"] = _react2["default"].createClass({
+	displayName: "add",
 
 	submitPic: function submitPic() {
 		this.props.onSub();
@@ -307,75 +307,75 @@ exports['default'] = _react2['default'].createClass({
 	render: function render() {
 		var _this = this;
 
-		return _react2['default'].createElement(
-			'div',
-			{ className: 'addWrapper' },
-			_react2['default'].createElement(
-				'div',
-				{ className: 'formWrapper' },
-				_react2['default'].createElement(
-					'h1',
+		return _react2["default"].createElement(
+			"div",
+			{ className: "addWrapper" },
+			_react2["default"].createElement(
+				"div",
+				{ className: "formWrapper" },
+				_react2["default"].createElement(
+					"h1",
 					null,
-					'Add a Picture'
+					"Add a Picture"
 				),
-				_react2['default'].createElement(
-					'form',
+				_react2["default"].createElement(
+					"form",
 					null,
-					_react2['default'].createElement(
-						'label',
+					_react2["default"].createElement(
+						"label",
 						null,
-						'Picture Name:'
+						"Picture Name:"
 					),
-					_react2['default'].createElement('input', { className: 'inputName', type: 'text' }),
-					_react2['default'].createElement('br', null),
-					_react2['default'].createElement('br', null),
-					_react2['default'].createElement(
-						'label',
+					_react2["default"].createElement("input", { className: "inputName", type: "text" }),
+					_react2["default"].createElement("br", null),
+					_react2["default"].createElement("br", null),
+					_react2["default"].createElement(
+						"label",
 						null,
-						'User Name:'
+						"User Name:"
 					),
-					_react2['default'].createElement('input', { className: 'inputUser', type: 'text' }),
-					_react2['default'].createElement('br', null),
-					_react2['default'].createElement('br', null),
-					_react2['default'].createElement(
-						'label',
+					_react2["default"].createElement("input", { className: "inputUser", type: "text" }),
+					_react2["default"].createElement("br", null),
+					_react2["default"].createElement("br", null),
+					_react2["default"].createElement(
+						"label",
 						null,
-						'Picture Location:'
+						"Picture Location:"
 					),
-					_react2['default'].createElement('input', { className: 'inputLocation', type: 'text' }),
-					_react2['default'].createElement('br', null),
-					_react2['default'].createElement('br', null),
-					_react2['default'].createElement(
-						'label',
+					_react2["default"].createElement("input", { className: "inputLocation", type: "text" }),
+					_react2["default"].createElement("br", null),
+					_react2["default"].createElement("br", null),
+					_react2["default"].createElement(
+						"label",
 						null,
-						'Picture URL:'
+						"Picture URL:"
 					),
-					_react2['default'].createElement('input', { className: 'inputUrl', type: 'text' }),
-					_react2['default'].createElement('br', null),
-					_react2['default'].createElement('br', null),
-					_react2['default'].createElement(
-						'label',
+					_react2["default"].createElement("input", { className: "inputUrl", type: "text" }),
+					_react2["default"].createElement("br", null),
+					_react2["default"].createElement("br", null),
+					_react2["default"].createElement(
+						"label",
 						null,
-						'Description'
+						"Description"
 					),
-					_react2['default'].createElement('textarea', { className: 'inputDescription', type: 'text' }),
-					_react2['default'].createElement('br', null),
-					_react2['default'].createElement('br', null),
-					_react2['default'].createElement(
-						'button',
+					_react2["default"].createElement("textarea", { className: "inputDescription", type: "text" }),
+					_react2["default"].createElement("br", null),
+					_react2["default"].createElement("br", null),
+					_react2["default"].createElement(
+						"button",
 						{ onClick: function () {
 								return _this.submitPic();
 							} },
-						'Add New Picture'
+						"Add New Picture"
 					)
 				)
 			)
 		);
 	}
 });
-module.exports = exports['default'];
+module.exports = exports["default"];
 
-},{"../resources":4,"../views":12,"backbone":15,"jquery":17,"react":183,"react-dom":18}],9:[function(require,module,exports){
+},{"react":183}],9:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -387,10 +387,6 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'd
 var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
-
-var _reactDom = require('react-dom');
-
-var _reactDom2 = _interopRequireDefault(_reactDom);
 
 exports['default'] = _react2['default'].createClass({
 	displayName: 'details',
@@ -433,32 +429,24 @@ exports['default'] = _react2['default'].createClass({
 });
 module.exports = exports['default'];
 
-},{"react":183,"react-dom":18}],10:[function(require,module,exports){
+},{"react":183}],10:[function(require,module,exports){
 "use strict";
 
 },{}],11:[function(require,module,exports){
-'use strict';
+"use strict";
 
-Object.defineProperty(exports, '__esModule', {
+Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-var _backbone = require('backbone');
-
-var _backbone2 = _interopRequireDefault(_backbone);
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDom = require('react-dom');
-
-var _reactDom2 = _interopRequireDefault(_reactDom);
-
-exports['default'] = _react2['default'].createClass({
-	displayName: 'home',
+exports["default"] = _react2["default"].createClass({
+	displayName: "home",
 
 	picDetails: function picDetails(id) {
 		console.log(id);
@@ -468,35 +456,35 @@ exports['default'] = _react2['default'].createClass({
 	formatData: function formatData(data) {
 		var _this = this;
 
-		return _react2['default'].createElement(
-			'div',
+		return _react2["default"].createElement(
+			"div",
 			{ key: data.objectId,
 				onClick: function () {
 					return _this.picDetails(data.objectId);
 				} },
-			_react2['default'].createElement('img', { src: data.URL, width: '40%' })
+			_react2["default"].createElement("img", { src: data.URL, width: "40%" })
 		);
 	},
 	render: function render() {
-		return _react2['default'].createElement(
-			'div',
+		return _react2["default"].createElement(
+			"div",
 			null,
-			_react2['default'].createElement(
-				'div',
-				{ className: 'banner' },
-				_react2['default'].createElement('img', { src: 'http://mywanderfulworld.com/wp-content/uploads/2015/04/GLOBE.jpg', width: '100%' })
+			_react2["default"].createElement(
+				"div",
+				{ className: "banner" },
+				_react2["default"].createElement("img", { src: "http://mywanderfulworld.com/wp-content/uploads/2015/04/GLOBE.jpg", width: "100%" })
 			),
-			_react2['default'].createElement(
-				'div',
+			_react2["default"].createElement(
+				"div",
 				null,
 				this.props.getData.map(this.formatData)
 			)
 		);
 	}
 });
-module.exports = exports['default'];
+module.exports = exports["default"];
 
-},{"backbone":15,"react":183,"react-dom":18}],12:[function(require,module,exports){
+},{"react":183}],12:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -537,34 +525,20 @@ exports.SpinnerComponent = _spinner2['default'];
 exports.NavComponent = _nav2['default'];
 
 },{"./add":8,"./details":9,"./edit":10,"./home":11,"./nav":13,"./spinner":14}],13:[function(require,module,exports){
-'use strict';
+"use strict";
 
-Object.defineProperty(exports, '__esModule', {
+Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-var _backbone = require('backbone');
-
-var _backbone2 = _interopRequireDefault(_backbone);
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDom = require('react-dom');
-
-var _reactDom2 = _interopRequireDefault(_reactDom);
-
-var _jquery = require('jquery');
-
-var _jquery2 = _interopRequireDefault(_jquery);
-
-var _views = require('../views');
-
-exports['default'] = _react2['default'].createClass({
-	displayName: 'nav',
+exports["default"] = _react2["default"].createClass({
+	displayName: "nav",
 
 	returnHome: function returnHome() {
 		this.props.onHome();
@@ -575,44 +549,44 @@ exports['default'] = _react2['default'].createClass({
 	render: function render() {
 		var _this = this;
 
-		return _react2['default'].createElement(
-			'div',
+		return _react2["default"].createElement(
+			"div",
 			null,
-			_react2['default'].createElement(
-				'ul',
+			_react2["default"].createElement(
+				"ul",
 				null,
-				_react2['default'].createElement(
-					'li',
+				_react2["default"].createElement(
+					"li",
 					{ onClick: function () {
 							return _this.returnHome();
 						} },
-					_react2['default'].createElement(
-						'h2',
+					_react2["default"].createElement(
+						"h2",
 						null,
-						'Hello World'
+						"Hello World"
 					)
 				),
-				_react2['default'].createElement(
-					'li',
+				_react2["default"].createElement(
+					"li",
 					{ onClick: function () {
 							return _this.addPic();
 						} },
-					_react2['default'].createElement(
-						'h2',
+					_react2["default"].createElement(
+						"h2",
 						null,
-						'New Image'
+						"New Image"
 					)
 				),
-				_react2['default'].createElement(
-					'li',
+				_react2["default"].createElement(
+					"li",
 					null,
-					_react2['default'].createElement(
-						'h2',
+					_react2["default"].createElement(
+						"h2",
 						null,
-						_react2['default'].createElement(
-							'a',
-							{ href: 'http://jessesoldatfirstsite.bitballoon.com', target: '_blank' },
-							'My World'
+						_react2["default"].createElement(
+							"a",
+							{ href: "http://jessesoldatfirstsite.bitballoon.com", target: "_blank" },
+							"My World"
 						)
 					)
 				)
@@ -620,12 +594,35 @@ exports['default'] = _react2['default'].createClass({
 		);
 	}
 });
-module.exports = exports['default'];
+module.exports = exports["default"];
 
-},{"../views":12,"backbone":15,"jquery":17,"react":183,"react-dom":18}],14:[function(require,module,exports){
+},{"react":183}],14:[function(require,module,exports){
 "use strict";
 
-},{}],15:[function(require,module,exports){
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+exports["default"] = _react2["default"].createClass({
+	displayName: "spinner",
+
+	render: function render() {
+		return _react2["default"].createElement(
+			"div",
+			null,
+			_react2["default"].createElement("i", { className: "fa fa-spinner fa-spin" })
+		);
+	}
+});
+module.exports = exports["default"];
+
+},{"react":183}],15:[function(require,module,exports){
 (function (global){
 //     Backbone.js 1.3.3
 

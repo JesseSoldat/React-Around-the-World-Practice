@@ -7,7 +7,8 @@ import {
 	NavComponent,
 	HomeComponent,
 	AddComponent,
-	DetailsComponent
+	DetailsComponent,
+	SpinnerComponent
 
 } from './views';
 
@@ -42,7 +43,15 @@ export default Backbone.Router.extend({
 		Backbone.history.start();
 		return this;
 	},
-	showHome(){
+	showSpinner() {
+		this.render(
+			<SpinnerComponent />
+			);
+	},
+	showHome() {
+		this.showSpinner();
+	
+
 		this.collection.fetch().then(()=>{
 			let data = this.collection.toJSON();
 			// console.log(data);
@@ -114,8 +123,14 @@ export default Backbone.Router.extend({
 			imageClicked = this.collection.add({objectId: id});
 			imageClicked.fetch().then(() => {
 				this.render(
-				<DetailsComponent 
-				image={imageClicked.toJSON()}/>
+				<div>
+					<NavComponent
+					onHome={() => this.goto('')}
+					onAdd={() => this.goto('add')}/>
+
+					<DetailsComponent 
+					image={imageClicked.toJSON()}/>
+				</div>
 				);
 			});
 			

@@ -1,19 +1,5 @@
-import Backbone from 'backbone';
 import React from 'react';
-import ReactDom from 'react-dom';
-import $ from 'jquery';
 
-import {
-	HomeComponent,
-	NavComponent
-
-} from '../views';
-
-
-import {
-	PictureModel,
-	PicturesCollection
-}	from '../resources';
 
 export default React.createClass({
 	submitPic() {

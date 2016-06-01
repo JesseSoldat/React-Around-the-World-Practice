@@ -1,11 +1,4 @@
-import Backbone from 'backbone';
 import React from 'react';
-import ReactDom from 'react-dom';
-import $ from 'jquery';
-
-import {
-	HomeComponent
-} from '../views'
 
 export default React.createClass({
 	returnHome() {
