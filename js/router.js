@@ -74,7 +74,7 @@ export default Backbone.Router.extend({
 	},
 	showDetails(id){
 		let imageClicked = this.collection.get(id);
-		console.log(imageClicked);
+		// console.log(imageClicked);
 
 		if(imageClicked) {
 		this.render(
@@ -90,9 +90,14 @@ export default Backbone.Router.extend({
 		} 
 
 		else {
-			this.render(
-				<div>No Image</div>
+			imageClicked = this.collection.add({objectId: id});
+			imageClicked.fetch().then(() => {
+				this.render(
+				<DetailsComponent 
+				image={imageClicked.toJSON()}/>
 				);
+			});
+			
 		}
 		
 	}

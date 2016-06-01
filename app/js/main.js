@@ -222,7 +222,7 @@ exports['default'] = _backbone2['default'].Router.extend({
 		var _this3 = this;
 
 		var imageClicked = this.collection.get(id);
-		console.log(imageClicked);
+		// console.log(imageClicked);
 
 		if (imageClicked) {
 			this.render(_react2['default'].createElement(
@@ -239,11 +239,11 @@ exports['default'] = _backbone2['default'].Router.extend({
 					image: imageClicked.toJSON() })
 			));
 		} else {
-			this.render(_react2['default'].createElement(
-				'div',
-				null,
-				'No Image'
-			));
+			imageClicked = this.collection.add({ objectId: id });
+			imageClicked.fetch().then(function () {
+				_this3.render(_react2['default'].createElement(_views.DetailsComponent, {
+					image: imageClicked.toJSON() }));
+			});
 		}
 	}
 
@@ -374,7 +374,35 @@ exports['default'] = _react2['default'].createClass({
 		return _react2['default'].createElement(
 			'div',
 			null,
-			'DETAILS'
+			_react2['default'].createElement(
+				'h1',
+				null,
+				'Details'
+			),
+			_react2['default'].createElement('img', { src: this.props.image.URL }),
+			_react2['default'].createElement(
+				'h3',
+				null,
+				'Name: ',
+				this.props.image.Name
+			),
+			_react2['default'].createElement(
+				'h3',
+				null,
+				'User: ',
+				this.props.image.User
+			),
+			_react2['default'].createElement(
+				'h3',
+				null,
+				'@ ',
+				this.props.image.Location
+			),
+			_react2['default'].createElement(
+				'p',
+				null,
+				this.props.image.Description
+			)
 		);
 	}
 });
