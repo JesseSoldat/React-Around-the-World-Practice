@@ -632,17 +632,17 @@ exports["default"] = _react2["default"].createClass({
 
 		return _react2["default"].createElement(
 			"div",
-			{ key: data.objectId,
+			{ className: "imgContainer", key: data.objectId,
 				onClick: function () {
 					return _this.picDetails(data.objectId);
 				} },
-			_react2["default"].createElement("img", { src: data.URL, width: "40%" })
+			_react2["default"].createElement("img", { src: data.URL, className: "parseImg" })
 		);
 	},
 	render: function render() {
 		return _react2["default"].createElement(
 			"div",
-			null,
+			{ width: "100%" },
 			_react2["default"].createElement(
 				"div",
 				{ className: "banner" },
@@ -650,7 +650,7 @@ exports["default"] = _react2["default"].createClass({
 			),
 			_react2["default"].createElement(
 				"div",
-				null,
+				{ className: "homeImgContainer" },
 				this.props.getData.map(this.formatData)
 			)
 		);
