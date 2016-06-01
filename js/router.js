@@ -106,7 +106,7 @@ export default Backbone.Router.extend({
 	},
 	showDetails(id){
 		let imageClicked = this.collection.get(id);
-		// console.log(imageClicked);
+		
 
 		if(imageClicked) {
 		this.render(
@@ -142,11 +142,29 @@ export default Backbone.Router.extend({
 		
 	},
 	showEdit(id) {
+
 		
 		let imageClicked = this.collection;
-		var imageId = id;
-		// console.log(imageId);
 
+		let imageId = id;
+
+		this.collection.fetch().then(()=>{
+			let data = this.collection.toJSON();
+			// console.log(data);
+
+			let singleObj = data.map(function(d){
+				if(d.objectId === imageId) {
+					// console.log(d);
+					return d;
+				}
+
+			});
+			let single = singleObj[0];
+			// console.log(single);
+			
+		
+
+		
 		this.render(
 			<div>
 				<NavComponent
@@ -156,6 +174,7 @@ export default Backbone.Router.extend({
 				<EditComponent 
 				image={imageClicked.toJSON()}
 				id={imageId}
+				info={single}
 				EditSubmit={() => {
 					let picName = document.querySelector('.editPicName').value;
 					let userName = document.querySelector('.editUserName').value;
@@ -179,6 +198,8 @@ export default Backbone.Router.extend({
 				}/>
 			</div>
 			);
+		});
 	}
+
 
 }); //end of export default

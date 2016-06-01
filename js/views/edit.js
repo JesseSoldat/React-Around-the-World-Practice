@@ -15,27 +15,29 @@ export default React.createClass({
 				<form>
 					<div>
 						<label>Picture Name: </label>
-						<input className="editPicName" type="text" />
+						<input placeholder={this.props.info.Name} className="editPicName" type="text" />
+						
+						
 					</div>
 					<br/><br/>
 					<div>
 						<label>User Name: </label>
-						<input className="editUserName"type="text" />
+						<input placeholder={this.props.info.User}className="editUserName"type="text" />
 					</div>
 					<br/><br/>
 					<div>
 						<label>Picture Location: </label>
-						<input className="editLocation"type="text" />
+						<input placeholder={this.props.info.Location}className="editLocation"type="text" />
 					</div>
 					<br/><br/>
 					<div>
 						<label>Picture Url: </label>
-						<input className="editUrl" type="text" />
+						<input placeholder={this.props.info.URL}className="editUrl" type="text" />
 					</div>
 					<br/><br/>
 					<div>
 						<label>Description:</label>
-						<textarea className="editDescription" type="text" />
+						<textarea placeholder={this.props.info.Description} className="editDescription" type="text" />
 					</div>
 					<br/><br/>
 					

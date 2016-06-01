@@ -246,7 +246,6 @@ exports['default'] = _backbone2['default'].Router.extend({
 		var _this3 = this;
 
 		var imageClicked = this.collection.get(id);
-		// console.log(imageClicked);
 
 		if (imageClicked) {
 			this.render(_react2['default'].createElement(
@@ -291,41 +290,56 @@ exports['default'] = _backbone2['default'].Router.extend({
 		var _this4 = this;
 
 		var imageClicked = this.collection;
+
 		var imageId = id;
-		// console.log(imageId);
 
-		this.render(_react2['default'].createElement(
-			'div',
-			null,
-			_react2['default'].createElement(_views.NavComponent, {
-				onHome: function () {
-					return _this4.goto('');
-				},
-				onAdd: function () {
-					return _this4.goto('add');
-				} }),
-			_react2['default'].createElement(_views.EditComponent, {
-				image: imageClicked.toJSON(),
-				id: imageId,
-				EditSubmit: function () {
-					var picName = document.querySelector('.editPicName').value;
-					var userName = document.querySelector('.editUserName').value;
-					var location = document.querySelector('.editLocation').value;
-					var url = document.querySelector('.editUrl').value;
-					var description = document.querySelector('.editDescription').value;
+		this.collection.fetch().then(function () {
+			var data = _this4.collection.toJSON();
+			// console.log(data);
 
-					var editParse = new _resources.PictureModel({
-						objectId: id,
-						Name: picName,
-						User: userName,
-						Location: location,
-						URL: url,
-						Description: description
-					});
+			var singleObj = data.map(function (d) {
+				if (d.objectId === imageId) {
+					// console.log(d);
+					return d;
+				}
+			});
+			var single = singleObj[0];
+			// console.log(single);
 
-					console.log(editParse.toJSON());
-				} })
-		));
+			_this4.render(_react2['default'].createElement(
+				'div',
+				null,
+				_react2['default'].createElement(_views.NavComponent, {
+					onHome: function () {
+						return _this4.goto('');
+					},
+					onAdd: function () {
+						return _this4.goto('add');
+					} }),
+				_react2['default'].createElement(_views.EditComponent, {
+					image: imageClicked.toJSON(),
+					id: imageId,
+					info: single,
+					EditSubmit: function () {
+						var picName = document.querySelector('.editPicName').value;
+						var userName = document.querySelector('.editUserName').value;
+						var location = document.querySelector('.editLocation').value;
+						var url = document.querySelector('.editUrl').value;
+						var description = document.querySelector('.editDescription').value;
+
+						var editParse = new _resources.PictureModel({
+							objectId: id,
+							Name: picName,
+							User: userName,
+							Location: location,
+							URL: url,
+							Description: description
+						});
+
+						console.log(editParse.toJSON());
+					} })
+			));
+		});
 	}
 
 });
@@ -537,7 +551,7 @@ exports["default"] = _react2["default"].createClass({
 						null,
 						"Picture Name: "
 					),
-					_react2["default"].createElement("input", { className: "editPicName", type: "text" })
+					_react2["default"].createElement("input", { placeholder: this.props.info.Name, className: "editPicName", type: "text" })
 				),
 				_react2["default"].createElement("br", null),
 				_react2["default"].createElement("br", null),
@@ -549,7 +563,7 @@ exports["default"] = _react2["default"].createClass({
 						null,
 						"User Name: "
 					),
-					_react2["default"].createElement("input", { className: "editUserName", type: "text" })
+					_react2["default"].createElement("input", { placeholder: this.props.info.User, className: "editUserName", type: "text" })
 				),
 				_react2["default"].createElement("br", null),
 				_react2["default"].createElement("br", null),
@@ -561,7 +575,7 @@ exports["default"] = _react2["default"].createClass({
 						null,
 						"Picture Location: "
 					),
-					_react2["default"].createElement("input", { className: "editLocation", type: "text" })
+					_react2["default"].createElement("input", { placeholder: this.props.info.Location, className: "editLocation", type: "text" })
 				),
 				_react2["default"].createElement("br", null),
 				_react2["default"].createElement("br", null),
@@ -573,7 +587,7 @@ exports["default"] = _react2["default"].createClass({
 						null,
 						"Picture Url: "
 					),
-					_react2["default"].createElement("input", { className: "editUrl", type: "text" })
+					_react2["default"].createElement("input", { placeholder: this.props.info.URL, className: "editUrl", type: "text" })
 				),
 				_react2["default"].createElement("br", null),
 				_react2["default"].createElement("br", null),
@@ -585,7 +599,7 @@ exports["default"] = _react2["default"].createClass({
 						null,
 						"Description:"
 					),
-					_react2["default"].createElement("textarea", { className: "editDescription", type: "text" })
+					_react2["default"].createElement("textarea", { placeholder: this.props.info.Description, className: "editDescription", type: "text" })
 				),
 				_react2["default"].createElement("br", null),
 				_react2["default"].createElement("br", null)
