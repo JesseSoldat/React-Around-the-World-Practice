@@ -215,7 +215,25 @@ exports['default'] = _backbone2['default'].Router.extend({
 				onAdd: function () {
 					return _this2.goto('add');
 				} }),
-			_react2['default'].createElement(_views.AddComponent, null)
+			_react2['default'].createElement(_views.AddComponent, {
+				onSub: function () {
+					var picName = document.querySelector('.inputName').value;
+					var userName = document.querySelector('.inputUser').value;
+					var location = document.querySelector('.inputLocation').value;
+					var url = document.querySelector('.inputUrl').value;
+					var description = document.querySelector('.inputDescription').value;
+
+					// console.log(picName,userName,location,url,description);
+					var uploadParse = new _resources.PictureModel({
+						Name: picName,
+						User: userName,
+						Location: location,
+						URL: url,
+						Description: description
+					});
+					uploadParse.save();
+					_this2.goto('');
+				} })
 		));
 	},
 	showDetails: function showDetails(id) {
@@ -283,7 +301,12 @@ var _resources = require('../resources');
 exports['default'] = _react2['default'].createClass({
 	displayName: 'add',
 
+	submitPic: function submitPic() {
+		this.props.onSub();
+	},
 	render: function render() {
+		var _this = this;
+
 		return _react2['default'].createElement(
 			'div',
 			{ className: 'addWrapper' },
@@ -303,7 +326,7 @@ exports['default'] = _react2['default'].createClass({
 						null,
 						'Picture Name:'
 					),
-					_react2['default'].createElement('input', { type: 'text' }),
+					_react2['default'].createElement('input', { className: 'inputName', type: 'text' }),
 					_react2['default'].createElement('br', null),
 					_react2['default'].createElement('br', null),
 					_react2['default'].createElement(
@@ -311,7 +334,7 @@ exports['default'] = _react2['default'].createClass({
 						null,
 						'User Name:'
 					),
-					_react2['default'].createElement('input', { type: 'text' }),
+					_react2['default'].createElement('input', { className: 'inputUser', type: 'text' }),
 					_react2['default'].createElement('br', null),
 					_react2['default'].createElement('br', null),
 					_react2['default'].createElement(
@@ -319,7 +342,7 @@ exports['default'] = _react2['default'].createClass({
 						null,
 						'Picture Location:'
 					),
-					_react2['default'].createElement('input', { type: 'text' }),
+					_react2['default'].createElement('input', { className: 'inputLocation', type: 'text' }),
 					_react2['default'].createElement('br', null),
 					_react2['default'].createElement('br', null),
 					_react2['default'].createElement(
@@ -327,7 +350,7 @@ exports['default'] = _react2['default'].createClass({
 						null,
 						'Picture URL:'
 					),
-					_react2['default'].createElement('input', { type: 'text' }),
+					_react2['default'].createElement('input', { className: 'inputUrl', type: 'text' }),
 					_react2['default'].createElement('br', null),
 					_react2['default'].createElement('br', null),
 					_react2['default'].createElement(
@@ -335,12 +358,14 @@ exports['default'] = _react2['default'].createClass({
 						null,
 						'Description'
 					),
-					_react2['default'].createElement('textarea', { type: 'text' }),
+					_react2['default'].createElement('textarea', { className: 'inputDescription', type: 'text' }),
 					_react2['default'].createElement('br', null),
 					_react2['default'].createElement('br', null),
 					_react2['default'].createElement(
 						'button',
-						null,
+						{ onClick: function () {
+								return _this.submitPic();
+							} },
 						'Add New Picture'
 					)
 				)

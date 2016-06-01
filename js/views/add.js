@@ -16,6 +16,9 @@ import {
 }	from '../resources';
 
 export default React.createClass({
+	submitPic() {
+		this.props.onSub();
+	},
 	render(){
 		return(
 			<div className="addWrapper">
@@ -24,25 +27,25 @@ export default React.createClass({
 					<h1>Add a Picture</h1>
 					<form>
 						<label>Picture Name:</label>
-						<input type="text" />
+						<input className="inputName" type="text" />
 						<br/><br/>
 
 						<label>User Name:</label>
-						<input type="text" />
+						<input className="inputUser" type="text" />
 						<br/><br/>
 
 						<label>Picture Location:</label>
-						<input type="text" />
+						<input className="inputLocation" type="text" />
 						<br/><br/>
 
 						<label>Picture URL:</label>
-						<input type="text" />
+						<input className="inputUrl" type="text" />
 						<br/><br/>
 
 						<label>Description</label>
-						<textarea type="text" />
+						<textarea className="inputDescription" type="text" />
 						<br/><br/>
-						<button>Add New Picture</button>
+						<button onClick={() => this.submitPic()}>Add New Picture</button>
 					</form>
 				</div>
 			</div>)

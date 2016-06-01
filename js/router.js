@@ -67,7 +67,28 @@ export default Backbone.Router.extend({
 				<NavComponent
 				onHome={() => this.goto('')}
 				onAdd={() => this.goto('add')}/>
-				<AddComponent />
+
+				<AddComponent 
+				onSub={() => {
+					let picName = document.querySelector('.inputName').value;
+					let userName = document.querySelector('.inputUser').value;
+					let location = document.querySelector('.inputLocation').value;
+					let url = document.querySelector('.inputUrl').value;
+					let description = document.querySelector('.inputDescription').value;
+
+					// console.log(picName,userName,location,url,description);
+					let uploadParse = new PictureModel({
+						Name: picName,
+						User: userName,
+						Location: location,
+						URL: url,
+						Description: description
+					});
+					uploadParse.save();
+					this.goto('');
+				}
+				}/>
+
 			</div>
 			
 			);
