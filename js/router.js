@@ -4,7 +4,10 @@ import ReactDom from 'react-dom';
 import $ from 'jquery';
 
 import {
-	HomeComponent
+	NavComponent,
+	HomeComponent,
+	AddComponent
+
 } from './views';
 
 import {
@@ -43,16 +46,28 @@ export default Backbone.Router.extend({
 			// console.log(data);
 
 			this.render(
-				<HomeComponent
-				getData={data}
-				onHome={() => this.goto('')}
-				onAdd={() => this.goto('add')}/>
+				<div>
+					<NavComponent
+					onHome={() => this.goto('')}
+					onAdd={() => this.goto('add')}/>
+
+					<HomeComponent
+					getData={data}/>
+				</div>
 				);
 		});
 		
 	},
 	showAdd(){
-		console.log('showAdd');
+		this.render(
+			<div>
+				<NavComponent
+				onHome={() => this.goto('')}
+				onAdd={() => this.goto('add')}/>
+				<AddComponent />
+			</div>
+			
+			);
 	}
 
 }); //end of export default
